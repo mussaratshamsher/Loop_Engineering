@@ -25,3 +25,11 @@ No new TODOs found.
 
 ## Morning Brief - 2026-09-03 22:31:48
 No new TODOs found.
+
+## FAILED - 2026-09-07 19:52:13
+**needs a human**: The loop failed due to error: Directory D:/Agentic-Hackthon/Loop_Engineering/does-not-exist not found.
+
+## Morning Brief - 2026-09-07 20:10:24
+Found 2 new TODOs:
+- [ ] TODO: s
+- [ ] TODO: s found.

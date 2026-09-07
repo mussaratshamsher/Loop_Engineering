@@ -32,6 +32,16 @@ Build. Take the fix loop you built in Project 4 and codify its body. On the Clau
 
 Done when two things are true. First, one command (or one script) runs the whole draft-and-review body, meaning several candidates, isolated checkouts, and a verdict for each, with no step-by-step prompting from you. Second, you have proved the interlude's warning on your own machine: start a fresh session (or a fresh shell) and confirm the workflow remembers nothing from its last run. Then name what it would need to become a loop: a heartbeat to fire it, and a progress file its agents write. If you can name those two, you understand the difference between an engine and a loop. (Dynamic workflows are a research preview, so where this project and the live docs disagree, the docs win.)
 
+  ### Option 2: Using WSL (Windows Subsystem for Linux)
+
+
+  1. Open your WSL terminal.
+  2. Navigate to the directory:
+    cd /mnt/d/Agentic-Hackthon/Loop_Engineering/05-codify-body
+
+  3. Run the script:
+    bash workflow.sh
+
 # Project 6: The door bell Loop
 
 Build. Make your throwaway repo review its own pull requests. On the OpenCode approach, run opencode github install and accept the workflow it generates. On the Claude Code approach, create a Routine with a GitHub pull-request trigger (the appendix walks through the filters). Then open a PR that contains one planted bug, such as an off-by-one or a deleted null check, and wait.
