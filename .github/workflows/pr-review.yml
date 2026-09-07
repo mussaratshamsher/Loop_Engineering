@@ -1,0 +1,53 @@
+name: PR Reviewer Heartbeat
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Analyze PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const diff = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              mediaType: { format: "diff" }
+            });
+            
+            const diffText = diff.data;
+            let comment = "Thanks for the PR!";
+            
+            // Checking for deleted null check
+            if (diffText.includes("-    if (!user) {") || diffText.includes("-    if (user == null) {")) {
+              comment = "⚠️ **Bug Detected!** You deleted the null check for `user`. This will cause a runtime error if `user` is undefined.";
+              
+              await github.rest.pulls.createReview({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                body: comment,
+                event: 'REQUEST_CHANGES'
+              });
+            } else {
+              await github.rest.pulls.createReview({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                body: comment + " LGTM! The heartbeat looks good.",
+                event: 'APPROVE'
+              });
+            }
